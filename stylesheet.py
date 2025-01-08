@@ -33,6 +33,3 @@ def setupTheme(app):
     app.setStyleSheet(app.styleSheet() + qss)
         valid = False
     return valid
-
-def is_empty(string: str):
-    return len(string) == 0
