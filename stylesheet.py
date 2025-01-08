@@ -1,40 +1,36 @@
-from pathlib import Path
-import re
+from variables import (DARKER, DARKEST, PRIMARY, DARKER2, DARKEST2, PRIMARY2)
+from qt_material import apply_stylesheet
+qss = f"""
+    QPushButton[cssClass="specialButton"] {{
+        color: #fff;
+        background: {PRIMARY};
+    }}
+    QPushButton[cssClass="specialButton"]:hover {{
+        color: #fff;
+        background: {DARKER};
+    }}
+    QPushButton[cssClass="specialButton"]:pressed {{
+        color: #fff;
+        background: {DARKEST};
+    }}
+    QPushButton[cssClass="normalButton"] {{
+        color: #fff;
+        background: {PRIMARY2};
+    }}
+    QPushButton[cssClass="normalButton"]:hover {{
+        color: #fff;
+        background: {DARKER2};
+    }}
+    QPushButton[cssClass="normalButton"]:pressed {{
+        color: #fff;
+        background: {DARKEST2};
+    }}
+"""
 
-ROOT_DIR = Path(__file__).parent
-IMAGE_DIR = ROOT_DIR / 'imagens'
-ICON = IMAGE_DIR / 'logo3.png'
 
-PRIMARY = '#5282FF'
-DARKER = '#2056CB'
-DARKEST = '#002E80'
-PRIMARY2 = '#201F1F'
-DARKER2 = '#1A191A'
-DARKEST2 = '#111111'
-
-BIG_FONT = 40
-MEDIUM_FONT = 24
-SMALL_FONT = 18
-MARGIN = 15
-MINIMUM_WIDTH = 500
-
-DIGIT_REGEX = re.compile(r'^[0-9.]$')
-
-def is_num_or_dot(string: str):
-    return bool(DIGIT_REGEX.search(string))
-
-def conver_num(string: str):
-    number = float(string)
-    if number.is_integer():
-        number = int(number)
-    return number
-
-def is_valid_number(string: str):
-    valid = False
-    try:
-        float(string)
-        valid = True
-    except ValueError:
+def setupTheme(app):
+    apply_stylesheet(app, theme='dark_blue.xml')
+    app.setStyleSheet(app.styleSheet() + qss)
         valid = False
     return valid
 
